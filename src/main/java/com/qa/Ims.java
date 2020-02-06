@@ -8,12 +8,19 @@ import com.qa.controller.CustomerController;
 import com.qa.persistence.dao.CustomerDaoMysql;
 import com.qa.persistence.domain.Domain;
 import com.qa.services.CustomerServices;
+import com.qa.utils.Config;
+import com.qa.utils.Utils;
 
 public class Ims {
 	
 	public static final Logger LOGGER = Logger.getLogger(Ims.class);
 
 	public void imsSystem() {
+		LOGGER.info("What is your username");
+		Config.username = Utils.getInput();
+		LOGGER.info("What is your password");
+		Config.password = Utils.getInput();
+		
 		LOGGER.info("Which entity would you like to use?");
 		Domain.printDomains();
 		
