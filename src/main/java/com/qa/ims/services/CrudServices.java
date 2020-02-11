@@ -8,7 +8,7 @@ public interface CrudServices<T> {
      
     T create(T t);
      
-    void update(T t);
+    T update(T t);
  
     void delete(Long id);
 

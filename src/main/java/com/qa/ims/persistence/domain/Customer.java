@@ -1,11 +1,11 @@
 package com.qa.ims.persistence.domain;
 
-public class Customer{
+public class Customer {
 
 	private Long id;
 	private String firstName;
 	private String surname;
-	
+
 	public Customer(String firstName, String surname) {
 		this.firstName = firstName;
 		this.surname = surname;
@@ -16,7 +16,7 @@ public class Customer{
 		this.firstName = firstName;
 		this.surname = surname;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -40,7 +40,7 @@ public class Customer{
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
+
 	public String toString() {
 		return "id:" + id + " first name:" + firstName + " surname:" + surname;
 	}
