@@ -1,4 +1,4 @@
-package com.qa;
+package com.qa.ims;
 
 import org.apache.log4j.Logger;
 

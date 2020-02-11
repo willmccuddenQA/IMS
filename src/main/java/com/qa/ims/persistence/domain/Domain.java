@@ -1,8 +1,8 @@
-package com.qa.persistence.domain;
+package com.qa.ims.persistence.domain;
 
 import org.apache.log4j.Logger;
 
-import com.qa.utils.Utils;
+import com.qa.ims.utils.Utils;
 
 public enum Domain {
 

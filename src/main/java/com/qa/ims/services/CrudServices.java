@@ -1,4 +1,4 @@
-package com.qa.services;
+package com.qa.ims.services;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ public interface CrudServices<T> {
 
     public List<T> readAll();
      
-    void create(T t);
+    T create(T t);
      
-    void update(long id, T t);
+    void update(T t);
  
-    void delete(T t);
+    void delete(Long id);
 
 }

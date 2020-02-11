@@ -1,8 +1,12 @@
-package com.qa.utils;
+package com.qa.ims.utils;
 
 import java.util.Scanner;
 
 public class Utils {
+	
+	private Utils () {
+		
+	}
 
 	public static String getInput() {
 		@SuppressWarnings("resource")

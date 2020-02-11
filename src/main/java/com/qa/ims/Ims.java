@@ -1,15 +1,14 @@
-package com.qa;
+package com.qa.ims;
 
 import org.apache.log4j.Logger;
 
-import com.qa.controller.Action;
-import com.qa.controller.CrudController;
-import com.qa.controller.CustomerController;
-import com.qa.persistence.dao.CustomerDaoMysql;
-import com.qa.persistence.domain.Domain;
-import com.qa.services.CustomerServices;
-import com.qa.utils.Config;
-import com.qa.utils.Utils;
+import com.qa.ims.controller.Action;
+import com.qa.ims.controller.CrudController;
+import com.qa.ims.controller.CustomerController;
+import com.qa.ims.persistence.dao.CustomerDaoMysql;
+import com.qa.ims.persistence.domain.Domain;
+import com.qa.ims.services.CustomerServices;
+import com.qa.ims.utils.Utils;
 
 public class Ims {
 	
@@ -17,9 +16,9 @@ public class Ims {
 
 	public void imsSystem() {
 		LOGGER.info("What is your username");
-		Config.username = Utils.getInput();
+		String username = Utils.getInput();
 		LOGGER.info("What is your password");
-		Config.password = Utils.getInput();
+		String password = Utils.getInput();
 		
 		LOGGER.info("Which entity would you like to use?");
 		Domain.printDomains();
@@ -32,19 +31,22 @@ public class Ims {
 		
 		switch (domain) {
 		case CUSTOMER:
-			CustomerController customerController = new CustomerController(new CustomerServices(new CustomerDaoMysql()));
+			CustomerController customerController = new CustomerController(new CustomerServices(new CustomerDaoMysql(username, password)));
 			doAction(customerController, action);
+			break;
 		case ITEM:
 			break;
 		case ORDER:
 			break;
 		case STOP:
 			break;
+		default:
+			break;
 		}
 		
 	}
 	
-	public void doAction(CrudController<?> crudController, Action action) {
+	public void doAction(CrudController crudController, Action action) {
 		switch (action) {
 		case CREATE:
 			crudController.create();
@@ -59,6 +61,8 @@ public class Ims {
 			crudController.delete();
 			break;
 		case RETURN:
+			break;
+		default:
 			break;
 		}
 	}
