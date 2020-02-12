@@ -38,6 +38,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 		String surname = resultSet.getString("surname");
 		return new Customer(id, firstName, surname);
 	}
+
 	/**
 	 * Reads all customers from the database
 	 * 
@@ -45,8 +46,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	 */
 	@Override
 	public List<Customer> readAll() {
-		try (Connection connection = DriverManager
-				.getConnection(jdbcConnectionUrl, username, password);
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("select * from customers");) {
 			ArrayList<Customer> customers = new ArrayList<>();
@@ -92,11 +92,11 @@ public class CustomerDaoMysql implements Dao<Customer> {
 		}
 		return null;
 	}
-	
+
 	public Customer readCustomer(Long id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT FROM customers where id = "+id);) {
+				ResultSet resultSet = statement.executeQuery("SELECT FROM customers where id = " + id);) {
 			resultSet.next();
 			return customerFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -111,7 +111,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 	 * 
 	 * @param customer - takes in a customer object, the id field will be used to
 	 *                 update that customer in the database
-	 * @return 
+	 * @return
 	 */
 	@Override
 	public Customer update(Customer customer) {

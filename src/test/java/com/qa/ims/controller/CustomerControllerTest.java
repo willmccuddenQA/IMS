@@ -55,6 +55,9 @@ public class CustomerControllerTest {
 		assertEquals(savedCustomer, customerController.create());
 	}
 
+	/**
+	 * 
+	 */
 	@Test
 	public void updateTest() {
 		String id = "1";
