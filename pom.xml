@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.qa.ims</groupId>
 	<artifactId>chris-ims</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -40,24 +40,12 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
-
-	<distributionManagement>
-		<repository>
-			<id>nexus</id>
-			<url>http://35.239.201.125/nexus/repository/maven-snapshots/</url>
-		</repository>
-		<snapshotRepository>
-			<id>nexus</id>
-			<url>http://35.239.201.125/nexus/repository/maven-releases/</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<build>
 		<plugins>
-			<!-- Creates a jar for the code (does not 
-contain other dependencies which are needed for the project to run out of the box) -->
+			<!-- Creates a jar for the code (does not contain other dependencies which 
+				are needed for the project to run out of the box) -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
