@@ -1,6 +1,7 @@
 package com.qa.ims.controller;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.utils.Utils;
 
@@ -14,12 +15,9 @@ public enum Action {
 	UPDATE("To change an item already in the database"), DELETE("To remove an item from the database"),
 	RETURN("To return to domain selection");
 
-	public static final Logger LOGGER = Logger.getLogger(Action.class);
+	public static final Logger LOGGER = LogManager.getLogger();
 
 	private String description;
-
-	private Action() {
-	}
 
 	Action(String description) {
 		this.description = description;
@@ -33,7 +31,7 @@ public enum Action {
 	}
 
 	/**
-	 * Prints out all posible actions
+	 * Prints out all possible actions
 	 */
 	public static void printActions() {
 		for (Action action : Action.values()) {
@@ -48,15 +46,14 @@ public enum Action {
 	 * @return Action type
 	 */
 	public static Action getAction() {
-		Action action;
-		while (true) {
+		Action action = null;
+		do {
 			try {
-				action = Action.valueOf(Utils.getInput().toUpperCase());
-				break;
+				action = Action.valueOf(Utils.getInstance().getInput().toUpperCase());
 			} catch (IllegalArgumentException e) {
 				LOGGER.error("Invalid selection please try again");
 			}
-		}
+		} while (action == null);
 		return action;
 	}
 
