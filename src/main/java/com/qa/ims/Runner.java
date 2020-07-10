@@ -8,7 +8,7 @@ public class Runner {
 	public static final Logger LOGGER = LogManager.getLogger();
 
 	public static void main(String[] args) {
-		Ims ims = new Ims();
+		IMS ims = new IMS();
 		ims.imsSystem();
 	}
 
