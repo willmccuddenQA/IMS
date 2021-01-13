@@ -42,6 +42,13 @@ public class Order {
 		this.address = address;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [order_id=" + order_id + ", customer_id=" + customer_id + ", address=" + address + "]";
+	}
+	
+	
+
 	
 	
 	

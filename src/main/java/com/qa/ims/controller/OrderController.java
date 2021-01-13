@@ -29,31 +29,36 @@ public class OrderController implements CrudController<Order> {
 
 	@Override
 	public List<Order> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Order> orders = orderService.readAll();
+		for(Order order: orders) {
+			LOGGER.info(order.toString());
+		}
+		return orders;
 	}
 
 	@Override
 	public Order create() {
 		LOGGER.info("Please enter a customer_id");
 		Long customer_id = getInputLong();
-		LOGGER.info("Please enter a surname");
+		LOGGER.info("Please enter the address");
 		String address = getInput();
 		Order order = orderService.create(new Order(customer_id, address));
-		LOGGER.info("Customer created");
+		LOGGER.info("Order created");
 		return order;
 	}
 
 	@Override
 	public Order update() {
-		// TODO Auto-generated method stub
+		// add item to order so adding an orderline is needed
 		return null;
 	}
 
 	@Override
 	public void delete() {
-		// TODO Auto-generated method stub
-		
+		LOGGER.info("Please enter the id of the order you would like to delete");
+		Long id = Long.valueOf(getInput());
+		orderService.delete(id);
+		LOGGER.info("Order deleted");
 	}
 
 }

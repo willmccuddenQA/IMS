@@ -41,7 +41,6 @@ public class Ims {
 
 		Action.printActions();
 		Action action = Action.getAction();
-
 		switch (domain) {
 		case CUSTOMER:
 			CustomerController customerController = new CustomerController(
@@ -49,11 +48,11 @@ public class Ims {
 			doAction(customerController, action);
 			break;
 		case ITEM:
+			break;
+		case ORDER:
 			OrderController orderController = new OrderController(
 					new OrderServices(new OrderDaoMysql(username,password)));
 			doAction(orderController, action);
-			break;
-		case ORDER:
 			break;
 		case STOP:
 			break;
