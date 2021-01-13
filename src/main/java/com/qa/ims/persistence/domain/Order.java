@@ -3,36 +3,34 @@ import java.text.SimpleDateFormat;
 
 public class Order {
 	
-	private int order_id;
-	private int customer_id;
+	private Long order_id;
+	private Long customer_id;
 	private String address;
 	
-	public Order(int order_id, int customer_id, String address) {
-		super();
+	public Order(Long order_id, Long customer_id, String address) {
 		this.order_id = order_id;
 		this.customer_id = customer_id;
 		this.address = address;
 	}
 
-	public Order(int customer_id, String address) {
-		super();
+	public Order(Long customer_id, String address) {
 		this.customer_id = customer_id;
 		this.address = address;
 	}
 
-	public int getOrder_id() {
+	public Long getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(int order_id) {
+	public void setOrder_id(Long order_id) {
 		this.order_id = order_id;
 	}
 
-	public int getCustomer_id() {
+	public Long getCustomer_id() {
 		return customer_id;
 	}
 
-	public void setCustomer_id(int customer_id) {
+	public void setCustomer_id(Long customer_id) {
 		this.customer_id = customer_id;
 	}
 
@@ -43,6 +41,7 @@ public class Order {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	
 	
 	
