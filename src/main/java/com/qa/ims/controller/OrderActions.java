@@ -8,8 +8,7 @@ public enum OrderActions {
 	
 	ADD("Add item to order"), DELETEITEM("Delete item from order"), CALCULATE("Calculate order cost"),
 	DELETE("Removes an order from the database"), READITEMS("Read items from order"), 
-	CREATE("Add new order to database"), READ("Read all orders from database"),
-	ADDITEM("Add an item to and order"), RETURN("return to domain selection");
+	CREATE("Add new order to database"), READ("Read all orders from database"), RETURN("return to domain selection");
 	
 	public static final Logger LOGGER = Logger.getLogger(Action.class);
 	
@@ -33,11 +32,11 @@ public enum OrderActions {
 		}
 	}
 	
-	public static Action getAction() {
-		Action action;
+	public static OrderActions getAction() {
+		OrderActions action;
 		while(true) {
 			try {
-				action = Action.valueOf(Utils.getInput().toUpperCase());
+				action = OrderActions.valueOf(Utils.getInput().toUpperCase());
 				break;
 			} catch (IllegalArgumentException e){
 				LOGGER.error("Invalid selection please try again");

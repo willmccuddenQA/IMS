@@ -11,9 +11,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 
-public class OrderDaoMysql implements Dao<Order> {
+public class OrderDaoMysql {
 	
 	public static final Logger LOGGER = Logger.getLogger(CustomerDaoMysql.class);
 
@@ -53,7 +54,6 @@ public class OrderDaoMysql implements Dao<Order> {
 		return null;
 	}
 
-	@Override
 	public List<Order> readAll() {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
@@ -70,7 +70,6 @@ public class OrderDaoMysql implements Dao<Order> {
 		return new ArrayList<>();
 	}
 
-	@Override
 	public Order create(Order order) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
@@ -84,13 +83,6 @@ public class OrderDaoMysql implements Dao<Order> {
 		return null;
 	}
 
-	@Override
-	public Order update(Order t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void delete(long id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
@@ -99,6 +91,106 @@ public class OrderDaoMysql implements Dao<Order> {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("delete from orderline where order_id = " + id);
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+	}
+
+	public void deleteItem(Order order, Item item) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();){
+				statement.executeQuery("delete from orderline where order_id = '"+
+				order.getOrder_id()+"' and item_id = '" + item.getItem_id() + "' limit 1"); 
+		} catch (SQLException e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+	}
+
+	public double calculate(Order order) {
+		List<Item> items = readItems(order);
+		double total = 0;
+		for(Item item: items) {
+			total+= item.getPrice();
+		}
+		return total;
+	}
+	
+	public Item itemFromResultSet(ResultSet resultSet) throws SQLException {
+		Long id = resultSet.getLong("item_id");
+		String name = resultSet.getString("item_name");
+		double price = resultSet.getDouble("price");
+		return new Item(id,name,price);
+	}
+	
+	public List<Item> readItems(Order order) {
+		ArrayList<Long> itemIds = new ArrayList<>();
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("select * from orderline where order_id = '"+
+				order.getOrder_id()+"'");) {
+			while (resultSet.next()) {
+				itemIds.add(resultSet.getLong("item_id"));
+			}
+		} catch (SQLException e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		ArrayList<Item> items = new ArrayList<>();
+		for(int i = 0; i < itemIds.size(); i++) {
+			try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+					Statement statement = connection.createStatement();
+					ResultSet resultSet = statement.executeQuery("select * from items where item_id = '"+
+					itemIds.get(i)+"'");) {
+				items.add(itemFromResultSet(resultSet));
+			} catch (SQLException e) {
+				LOGGER.debug(e.getStackTrace());
+				LOGGER.error(e.getMessage());
+			}
+		}
+		return items;
+	}
+
+	public void addItems(Order order, Item item) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("insert into orderline(order_id, item_id) values('" + order.getOrder_id()
+					+ "','" + item.getItem_id() + "')");
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+	}
+	
+	public void addItems(Order order, Long item_id) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("insert into orderline(order_id, item_id) values('" + order.getOrder_id()
+					+ "','" + item_id + "')");
+		} catch (Exception e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+	}
+
+	public List<Item> retrieveAllItems() {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();){
+			ArrayList<Item> items = new ArrayList<>();
+			ResultSet resultSet = statement.executeQuery("select * from items"); 
+			while(resultSet.next()) {
+				items.add(itemFromResultSet(resultSet));
+			}
+			return items;
+		} catch (SQLException e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
 	}
 
 }
