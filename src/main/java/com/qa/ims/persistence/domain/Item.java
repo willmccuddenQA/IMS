@@ -3,10 +3,25 @@ package com.qa.ims.persistence.domain;
 public class Item {
 	private Long item_id;
 	private String name;
+	private double price;
 	
-	public Item(Long item_id, String name) {
+	public Item(Long item_id, String name, double price) {
 		this.item_id = item_id;
 		this.name = name;
+		this.price = price;
+	}
+	
+	public Item(String name, double price) {
+		this.name = name;
+		this.price = price;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	public Long getItem_id() {
