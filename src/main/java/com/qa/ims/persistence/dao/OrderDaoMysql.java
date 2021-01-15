@@ -110,9 +110,20 @@ public class OrderDaoMysql {
 			LOGGER.error(e.getMessage());
 		}
 	}
+	
+	public void deleteItem(Long order_id, Long item_id) {
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();){
+				statement.executeQuery("delete from orderline where order_id = '"+
+				order_id+"' and item_id = '" + item_id + "' limit 1"); 
+		} catch (SQLException e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+	}
 
-	public double calculate(Order order) {
-		List<Item> items = readItems(order);
+	public double calculate(Long order_id) {
+		List<Item> items = readItems(order_id);
 		double total = 0;
 		for(Item item: items) {
 			total+= item.getPrice();
@@ -127,12 +138,12 @@ public class OrderDaoMysql {
 		return new Item(id,name,price);
 	}
 	
-	public List<Item> readItems(Order order) {
+	public List<Item> readItems(Long order_id) {
 		ArrayList<Long> itemIds = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery("select * from orderline where order_id = '"+
-				order.getOrder_id()+"'");) {
+				order_id+"'");) {
 			while (resultSet.next()) {
 				itemIds.add(resultSet.getLong("item_id"));
 			}
@@ -154,19 +165,19 @@ public class OrderDaoMysql {
 		}
 		return items;
 	}
-
-	public void addItems(Order order, Item item) {
+	
+	public void addItem(Long order_id, Long item_id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into orderline(order_id, item_id) values('" + order.getOrder_id()
-					+ "','" + item.getItem_id() + "')");
+			statement.executeUpdate("insert into orderline(order_id, item_id) values('" + order_id
+					+ "','" + item_id + "')");
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
 	}
 	
-	public void addItems(Order order, Long item_id) {
+	public void addItem(Order order, Long item_id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("insert into orderline(order_id, item_id) values('" + order.getOrder_id()
@@ -182,6 +193,23 @@ public class OrderDaoMysql {
 				Statement statement = connection.createStatement();){
 			ArrayList<Item> items = new ArrayList<>();
 			ResultSet resultSet = statement.executeQuery("select * from items"); 
+			while(resultSet.next()) {
+				items.add(itemFromResultSet(resultSet));
+			}
+			return items;
+		} catch (SQLException e) {
+			LOGGER.debug(e.getStackTrace());
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
+	
+	public List<Item> retrieveItemsFromOrder(Order order){
+		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
+				Statement statement = connection.createStatement();){
+			ArrayList<Item> items = new ArrayList<>();
+			ResultSet resultSet = statement.executeQuery("select * from items where order_id = '"+
+					order.getOrder_id()+"'"); 
 			while(resultSet.next()) {
 				items.add(itemFromResultSet(resultSet));
 			}

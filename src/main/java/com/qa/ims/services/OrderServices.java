@@ -29,20 +29,24 @@ public class OrderServices  {
 		orderDao.deleteItem(order, item);
 	}
 	
-	public double calculate(Order order) {
-		return orderDao.calculate(order);
+	public void deleteItem(Long order_id, Long item_id) {
+		orderDao.deleteItem(order_id, item_id);
 	}
 	
-	public List<Item> readItems(Order order){
-		return orderDao.readItems(order);
+	public double calculate(Long order_id) {
+		return orderDao.calculate(order_id);
 	}
 	
-	public void addItems(Order order, Item item) {
-		orderDao.addItems(order, item);
+	public List<Item> readItems(Long order_id){
+		return orderDao.readItems(order_id);
 	}
 	
-	public void addItems(Order order, Long item_id) {
-		orderDao.addItems(order, item_id);
+	public void addItem(Long order_id, Long item_id) {
+		orderDao.addItem(order_id, item_id);
+	}
+	
+	public void addItem(Order order, Long item_id) {
+		orderDao.addItem(order, item_id);
 	}
 
 	public void delete(Long id) {
@@ -51,6 +55,10 @@ public class OrderServices  {
 	
 	public List<Item> retrieveAllItems() {
 		return orderDao.retrieveAllItems();
+	}
+	
+	public List<Item> retrieveItemsFromOrder(Order order) {
+		return orderDao.retrieveItemsFromOrder(order);
 	}
 
 }

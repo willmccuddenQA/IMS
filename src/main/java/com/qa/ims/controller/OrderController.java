@@ -21,10 +21,6 @@ public class OrderController{
 		this.orderService = orderService;
 	}
 	
-	Long getInputLong() {
-		return Utils.getInputLong();
-	}
-	
 	String getInput() {
 		return Utils.getInput();
 	}
@@ -39,8 +35,8 @@ public class OrderController{
 	
 	//CREATE
 	public Order create() {
-		LOGGER.info("Please enter a customer_id");
-		Long customer_id = getInputLong();
+		LOGGER.info("Please enter a customer id");
+		Long customer_id = Long.getLong(getInput());
 		LOGGER.info("Please enter the address");
 		String address = getInput();
 		Order order = orderService.create(new Order(customer_id, address));
@@ -55,7 +51,7 @@ public class OrderController{
 			if(item_id == 0) {
 				break;
 			}
-			orderService.addItems(order, item_id);
+			orderService.addItem(order, item_id);
 		}
 		LOGGER.info("Order created");
 		return order;
@@ -63,23 +59,50 @@ public class OrderController{
 	
 	// DELETEITEM
 	public void deleteItem() {
-		
+		LOGGER.info("Please enter an order id");
+		Long order_id = Long.getLong(getInput());
+		LOGGER.info("What item would you like to delete?");
+		List<Item> items = orderService.retrieveAllItems();
+		for(Item item : items) {
+			LOGGER.info(item.toString());
+		}
+		LOGGER.info("Use the item's id to select it");
+		Long item_id = Long.getLong(getInput());
+		orderService.deleteItem(order_id, item_id);
+		LOGGER.info("Item deleted");
 	}
 	
 	// CALCULATE
 	public double calculate() {
-		return 0;
-		
+		LOGGER.info("Please enter an order id:");
+		Long order_id = Long.getLong(getInput());
+		double cost = orderService.calculate(order_id);
+		LOGGER.info("This order costs: " + cost);
+		return cost;
 	}
 	// READITEMS
 	public List<Item> readItems() {
-		return null;
-		
+		LOGGER.info("Please enter an order id:");
+		Long order_id = Long.getLong(getInput());
+		List<Item> items = orderService.readItems(order_id);
+		for(Item item : items) {
+			LOGGER.info(item.toString());
+		}
+		return items;
 	}
 	
 	//ADD
-	public Order addItems() {
-		return null;
+	public void addItems() {
+		LOGGER.info("Please enter and order id:");
+		Long order_id = Long.getLong(getInput());
+		LOGGER.info("What item would you like to add?");
+		List<Item> items = orderService.retrieveAllItems();
+		for(Item item : items) {
+			LOGGER.info(item.toString());
+		}
+		LOGGER.info("Use the item's id to select it");
+		Long item_id = Long.getLong(getInput());
+		orderService.addItem(order_id, item_id);
 	}
 	
 	
