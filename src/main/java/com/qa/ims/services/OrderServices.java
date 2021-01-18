@@ -1,11 +1,8 @@
 package com.qa.ims.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.qa.ims.persistence.dao.Dao;
 import com.qa.ims.persistence.dao.OrderDaoMysql;
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 
@@ -55,10 +52,6 @@ public class OrderServices  {
 	
 	public List<Item> retrieveAllItems() {
 		return orderDao.retrieveAllItems();
-	}
-	
-	public List<Item> retrieveItemsFromOrder(Order order) {
-		return orderDao.retrieveItemsFromOrder(order);
 	}
 
 }

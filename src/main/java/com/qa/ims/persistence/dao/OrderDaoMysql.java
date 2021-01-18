@@ -157,7 +157,9 @@ public class OrderDaoMysql {
 					Statement statement = connection.createStatement();
 					ResultSet resultSet = statement.executeQuery("select * from items where item_id = '"+
 					itemIds.get(i)+"'");) {
-				items.add(itemFromResultSet(resultSet));
+				while (resultSet.next()) {
+					items.add(itemFromResultSet(resultSet));
+				}
 			} catch (SQLException e) {
 				LOGGER.debug(e.getStackTrace());
 				LOGGER.error(e.getMessage());
@@ -193,23 +195,6 @@ public class OrderDaoMysql {
 				Statement statement = connection.createStatement();){
 			ArrayList<Item> items = new ArrayList<>();
 			ResultSet resultSet = statement.executeQuery("select * from items"); 
-			while(resultSet.next()) {
-				items.add(itemFromResultSet(resultSet));
-			}
-			return items;
-		} catch (SQLException e) {
-			LOGGER.debug(e.getStackTrace());
-			LOGGER.error(e.getMessage());
-		}
-		return new ArrayList<>();
-	}
-	
-	public List<Item> retrieveItemsFromOrder(Order order){
-		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();){
-			ArrayList<Item> items = new ArrayList<>();
-			ResultSet resultSet = statement.executeQuery("select * from items where order_id = '"+
-					order.getOrder_id()+"'"); 
 			while(resultSet.next()) {
 				items.add(itemFromResultSet(resultSet));
 			}

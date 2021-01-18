@@ -46,7 +46,7 @@ public class CustomerController implements CrudController<Customer>{
 	public Customer create() {
 		LOGGER.info("Please enter a first name");
 		String firstName = getInput();
-		LOGGER.info("Please enter a surname");
+		LOGGER.info("Please enter a second name");
 		String surname = getInput();
 		Customer customer = customerService.create(new Customer(firstName, surname));
 		LOGGER.info("Customer created");

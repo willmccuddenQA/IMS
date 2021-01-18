@@ -4,10 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
-import com.qa.ims.services.CrudServices;
 import com.qa.ims.services.OrderServices;
 import com.qa.ims.utils.Utils;
 
@@ -36,7 +34,8 @@ public class OrderController{
 	//CREATE
 	public Order create() {
 		LOGGER.info("Please enter a customer id");
-		Long customer_id = Long.getLong(getInput());
+		Long customer_id = Long.valueOf(getInput());
+		System.out.println(customer_id);
 		LOGGER.info("Please enter the address");
 		String address = getInput();
 		Order order = orderService.create(new Order(customer_id, address));
@@ -47,7 +46,7 @@ public class OrderController{
 		}
 		while(true) {
 			LOGGER.info("Use the item's id to select it and enter 0 when done");
-			Long item_id = Long.getLong(getInput());
+			Long item_id = Long.valueOf(getInput());
 			if(item_id == 0) {
 				break;
 			}
@@ -60,7 +59,7 @@ public class OrderController{
 	// DELETEITEM
 	public void deleteItem() {
 		LOGGER.info("Please enter an order id");
-		Long order_id = Long.getLong(getInput());
+		Long order_id = Long.valueOf(getInput());
 		LOGGER.info("What item would you like to delete?");
 		List<Item> items = orderService.retrieveAllItems();
 		for(Item item : items) {
@@ -75,7 +74,7 @@ public class OrderController{
 	// CALCULATE
 	public double calculate() {
 		LOGGER.info("Please enter an order id:");
-		Long order_id = Long.getLong(getInput());
+		Long order_id = Long.valueOf(getInput());
 		double cost = orderService.calculate(order_id);
 		LOGGER.info("This order costs: " + cost);
 		return cost;
@@ -83,7 +82,7 @@ public class OrderController{
 	// READITEMS
 	public List<Item> readItems() {
 		LOGGER.info("Please enter an order id:");
-		Long order_id = Long.getLong(getInput());
+		Long order_id = Long.valueOf(getInput());
 		List<Item> items = orderService.readItems(order_id);
 		for(Item item : items) {
 			LOGGER.info(item.toString());
@@ -92,16 +91,16 @@ public class OrderController{
 	}
 	
 	//ADD
-	public void addItems() {
+	public void addItem() {
 		LOGGER.info("Please enter and order id:");
-		Long order_id = Long.getLong(getInput());
+		Long order_id = Long.valueOf(getInput());
 		LOGGER.info("What item would you like to add?");
 		List<Item> items = orderService.retrieveAllItems();
 		for(Item item : items) {
 			LOGGER.info(item.toString());
 		}
 		LOGGER.info("Use the item's id to select it");
-		Long item_id = Long.getLong(getInput());
+		Long item_id = Long.valueOf(getInput());
 		orderService.addItem(order_id, item_id);
 	}
 	
