@@ -168,15 +168,19 @@ public class OrderDaoMysql {
 		return items;
 	}
 	
-	public void addItem(Long order_id, Long item_id) {
+	public Item addItem(Long order_id, Long item_id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into orderline(order_id, item_id) values('" + order_id
+				ResultSet resultSet = statement.executeQuery("insert into orderline(order_id, item_id) values('" + order_id
 					+ "','" + item_id + "')");
+				while (resultSet.next()) {
+					return itemFromResultSet(resultSet);
+				}
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
+		return null;
 	}
 	
 	public void addItem(Order order, Long item_id) {

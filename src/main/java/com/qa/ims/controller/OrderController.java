@@ -20,7 +20,7 @@ public class OrderController{
 	}
 	
 	String getInput() {
-		return Utils.getInput();
+		return Utils.getInput(); 
 	}
 	//READ
 	public List<Order> readAll() {
@@ -28,7 +28,7 @@ public class OrderController{
 		for(Order order: orders) {
 			LOGGER.info(order.toString());
 		}
-		return orders;
+		return orders; 
 	}
 	
 	//CREATE
@@ -66,7 +66,7 @@ public class OrderController{
 			LOGGER.info(item.toString());
 		}
 		LOGGER.info("Use the item's id to select it");
-		Long item_id = Long.getLong(getInput());
+		Long item_id = Long.valueOf(getInput());
 		orderService.deleteItem(order_id, item_id);
 		LOGGER.info("Item deleted");
 	}
@@ -79,6 +79,7 @@ public class OrderController{
 		LOGGER.info("This order costs: " + cost);
 		return cost;
 	}
+	
 	// READITEMS
 	public List<Item> readItems() {
 		LOGGER.info("Please enter an order id:");
@@ -91,7 +92,7 @@ public class OrderController{
 	}
 	
 	//ADD
-	public void addItem() {
+	public Item addItem() {
 		LOGGER.info("Please enter and order id:");
 		Long order_id = Long.valueOf(getInput());
 		LOGGER.info("What item would you like to add?");
@@ -101,7 +102,7 @@ public class OrderController{
 		}
 		LOGGER.info("Use the item's id to select it");
 		Long item_id = Long.valueOf(getInput());
-		orderService.addItem(order_id, item_id);
+		return orderService.addItem(order_id, item_id);
 	}
 	
 	

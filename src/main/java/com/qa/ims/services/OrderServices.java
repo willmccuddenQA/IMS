@@ -38,8 +38,8 @@ public class OrderServices  {
 		return orderDao.readItems(order_id);
 	}
 	
-	public void addItem(Long order_id, Long item_id) {
-		orderDao.addItem(order_id, item_id);
+	public Item addItem(Long order_id, Long item_id) {
+		return orderDao.addItem(order_id, item_id);
 	}
 	
 	public void addItem(Order order, Long item_id) {

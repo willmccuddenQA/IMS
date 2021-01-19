@@ -31,7 +31,7 @@ public class ItemController implements CrudController<Item> {
 		}
 		return items;
 	}
-
+	 
 	@Override
 	public Item create() {
 		LOGGER.info("Please enter the item's name");
