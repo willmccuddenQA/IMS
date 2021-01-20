@@ -83,7 +83,7 @@ public class OrderDaoMysql {
 		return null;
 	}
 
-	public void delete(long id) {
+	public void delete(Long id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("delete from orders where order_id = " + id);
@@ -121,7 +121,7 @@ public class OrderDaoMysql {
 			LOGGER.error(e.getMessage());
 		}
 	}
-
+	
 	public double calculate(Long order_id) {
 		List<Item> items = readItems(order_id);
 		double total = 0;
@@ -193,7 +193,7 @@ public class OrderDaoMysql {
 			LOGGER.error(e.getMessage());
 		}
 	}
-
+	
 	public List<Item> retrieveAllItems() {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();){
@@ -209,5 +209,4 @@ public class OrderDaoMysql {
 		}
 		return new ArrayList<>();
 	}
-
 }
