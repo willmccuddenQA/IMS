@@ -44,7 +44,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [order_id=" + order_id + ", customer_id=" + customer_id + ", address=" + address + "]";
+		return "order_id=" + order_id + ", customer_id=" + customer_id + ", address=" + address;
 	}
 	
 	@Override
