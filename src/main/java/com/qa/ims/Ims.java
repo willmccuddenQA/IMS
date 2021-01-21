@@ -34,7 +34,7 @@ public class Ims {
 		LOGGER.info("What is your username");
 		String username = Utils.getInput();
 		LOGGER.info("What is your password");
-		String password = Utils.getInput();
+		String password = Utils.getInput(); 
 
 		init(username, password);
 		boolean loop = true;
@@ -163,7 +163,7 @@ public class Ims {
 	 * @param password
 	 */
 	public void init(String username, String password) {
-		init("jdbc:mysql://localhost:3306/", username, password, "src/main/resources/sql-schema.sql");
+		init("jdbc:mysql://34.89.52.122:3306/", username, password, "src/main/resources/sql-schema.sql");
 	}
  
 	public String readFile(String fileLocation) {
