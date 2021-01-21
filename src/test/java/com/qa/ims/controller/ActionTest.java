@@ -14,7 +14,7 @@ public class ActionTest {
 	@Test
 	public void getDescriptionsTestAction() {
 		assertEquals(Action.CREATE.getDescription(),"CREATE: To save a new item into the database");
-		assertEquals(Action.READ.getDescription(),"READ: To read an item from the database");
+		assertEquals(Action.READ.getDescription(),"READ: To read all items from the database");
 		assertEquals(Action.UPDATE.getDescription(),"UPDATE: To change an item already in the database");
 		assertEquals(Action.DELETE.getDescription(),"DELETE: To remove an item from the database");
 		assertEquals(Action.RETURN.getDescription(),"RETURN: To return to domain selection");

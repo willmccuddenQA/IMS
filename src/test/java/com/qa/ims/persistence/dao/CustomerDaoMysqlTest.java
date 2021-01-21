@@ -26,8 +26,8 @@ public class CustomerDaoMysqlTest {
 	
 	public static final Logger LOGGER = Logger.getLogger(CustomerDaoMysql.class);
 
-	private static String jdbcConnectionUrl= "jdbc:mysql://localhost:3306/";
-	private static String jdbcConnectionUrl2= "jdbc:mysql://localhost:3306/ims_test";
+	private static String jdbcConnectionUrl= "jdbc:mysql://34.89.52.122:3306/";
+	private static String jdbcConnectionUrl2= "jdbc:mysql://34.89.52.122:3306/ims_test";
 	private static String username = "root";
 	private static String password = "root";
 	
@@ -51,7 +51,7 @@ public class CustomerDaoMysqlTest {
 	@Test
 	public void constuctorTest() {
 		CustomerDaoMysql customerDao = new CustomerDaoMysql("user","password");
-		assertEquals(customerDao.getJdbcConnectionUrl(),"jdbc:mysql://localhost:3306/ims");
+		assertEquals(customerDao.getJdbcConnectionUrl(),"jdbc:mysql://34.89.52.122:3306/ims");
 		assertEquals(customerDao.getPassword(),"password");
 		assertEquals(customerDao.getUsername(),"user");
 	}
