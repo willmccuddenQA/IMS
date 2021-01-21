@@ -131,27 +131,27 @@ public class Ims {
 			LOGGER.info("Default");
 			break;
 		}
-	}
+	} 
 
-	public boolean doAction(CrudController<?> crudController, Action action) {
+	public void doAction(CrudController<?> crudController, Action action) {
 		switch (action) {
 		case CREATE:
 			crudController.create();
-			return true;
+			break;
 		case READ:
 			crudController.readAll();
-			return true;
+			break;
 		case UPDATE:
 			crudController.update();
-			return true;
+			break;
 		case DELETE:
 			crudController.delete();
-			return true;
+			break;
 		case RETURN:
-			return false;
+			break;
 		default:
 			LOGGER.info("Default");
-			return false;
+			break;
 		}
 	}
 
@@ -170,7 +170,7 @@ public class Ims {
 		StringBuilder stringBuilder = new StringBuilder();
 		try (BufferedReader br = new BufferedReader(new FileReader(fileLocation));) {
 			String string;
-			while ((string = br.readLine()) != null) {
+			while ((string = br.readLine()) != null) { 
 				stringBuilder.append(string);
 				stringBuilder.append("\r\n");
 			}
@@ -199,7 +199,6 @@ public class Ims {
 			for (StackTraceElement ele : e.getStackTrace()) {
 				LOGGER.debug(ele);
 			}
-			System.out.println("Here");
 			LOGGER.error(e.getMessage());
 		}
 	}

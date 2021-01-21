@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +19,7 @@ import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 
 import com.qa.ims.Ims;
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 
@@ -149,6 +151,17 @@ public class OrderDaoMysqlTest {
 		OrderDaoMysql orderDao = new OrderDaoMysql(jdbcConnectionUrl2,username,password);
 		List<Item> savedOrders = new ArrayList<>(Arrays.asList(new Item(1L,"Hat",5.99)));
 		assertEquals(savedOrders,orderDao.retrieveAllItems());
+	}
+	
+	@Test
+	public void testExceptions() {
+		OrderDaoMysql orderDao = new OrderDaoMysql("",username,password);
+		Order order = new Order(1L,"House");
+		assertNull(orderDao.readLatest());
+		assertEquals(new ArrayList<>(),orderDao.readAll());
+		assertNull(orderDao.create(order));
+		assertEquals(new ArrayList<>(),orderDao.readItems(1L));
+		assertEquals(new ArrayList<>(),orderDao.retrieveAllItems());
 	}
 	
 	@AfterClass

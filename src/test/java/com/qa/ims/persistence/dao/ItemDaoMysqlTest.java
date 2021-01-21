@@ -1,9 +1,11 @@
 package com.qa.ims.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +121,17 @@ public class ItemDaoMysqlTest {
 		itemDao.create(item);
 		Item updatedItem = new Item(6L,"Light bulb",5.60);
 		assertEquals(itemDao.update(updatedItem),updatedItem);
+	}
+	
+	@Test
+	public void testExceptions() {
+		ItemDaoMysql itemDao = new ItemDaoMysql("",username,password);
+		Item item = new Item("Hat",6.77);
+		assertEquals(new ArrayList<>(),itemDao.readAll());
+		assertNull(itemDao.readLatest());
+		assertNull(itemDao.create(item));
+		assertNull(itemDao.readItem(1L));
+		assertNull(itemDao.update(item));
 	}
 	
 	@AfterClass

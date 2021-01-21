@@ -1,6 +1,7 @@
 package com.qa.ims.persistence.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +19,7 @@ import org.junit.runners.MethodSorters;
 
 import com.qa.ims.Ims;
 import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Item;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CustomerDaoMysqlTest {
@@ -120,6 +122,17 @@ public class CustomerDaoMysqlTest {
 		customerDao.create(customer);
 		Customer updatedCustomer = new Customer(6L,"James","Jones");
 		assertEquals(customerDao.update(updatedCustomer),updatedCustomer);
+	}
+	
+	@Test
+	public void testExceptions() {
+		CustomerDaoMysql customerDao = new CustomerDaoMysql("",username,password);
+		Customer customer = new Customer("Will","McCudden");
+		assertEquals(new ArrayList<>(),customerDao.readAll());
+		assertNull(customerDao.readLatest());
+		assertNull(customerDao.create(customer));
+		assertNull(customerDao.readCustomer(1L));
+		assertNull(customerDao.update(customer));
 	}
 	
 	
