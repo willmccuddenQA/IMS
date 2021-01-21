@@ -34,16 +34,9 @@ public class OrderServicesTest {
 		Mockito.verify(orderDao,Mockito.times(1)).create(order);
 	}
 	
-	@Test
-	public void orderServicesDeleteItem() {
-		Order order = new Order(1L, "House");
-		Item item = new Item("Pen",1.99);
-		orderServices.deleteItem(order,item );
-		Mockito.verify(orderDao,Mockito.times(1)).deleteItem(order, item);
-	}
 	
 	@Test 
-	public void orderServicesDeleteItem2() {
+	public void orderServicesDeleteItem() {
 		orderServices.deleteItem(1L,1L );
 		Mockito.verify(orderDao,Mockito.times(1)).deleteItem(1L, 1L);
 	}

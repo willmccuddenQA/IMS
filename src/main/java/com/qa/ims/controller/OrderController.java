@@ -61,7 +61,7 @@ public class OrderController{
 		LOGGER.info("Please enter an order id");
 		Long order_id = Long.valueOf(getInput());
 		LOGGER.info("What item would you like to delete?");
-		List<Item> items = orderService.retrieveAllItems();
+		List<Item> items = orderService.readItems(order_id);
 		for(Item item : items) {
 			LOGGER.info(item.toString());
 		}
@@ -92,7 +92,7 @@ public class OrderController{
 	}
 	
 	//ADD
-	public Item addItem() {
+	public void addItem() {
 		LOGGER.info("Please enter and order id:");
 		Long order_id = Long.valueOf(getInput());
 		LOGGER.info("What item would you like to add?");
@@ -102,7 +102,7 @@ public class OrderController{
 		}
 		LOGGER.info("Use the item's id to select it");
 		Long item_id = Long.valueOf(getInput());
-		return orderService.addItem(order_id, item_id);
+		orderService.addItem(order_id, item_id);
 	}
 	
 	

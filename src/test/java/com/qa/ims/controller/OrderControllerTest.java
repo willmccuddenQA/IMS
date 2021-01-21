@@ -77,17 +77,11 @@ public class OrderControllerTest {
 	
 	@Test
 	public void addItem() {
-//		Item savedItem = new Item(1L,"Coat",1.99);
-//		Mockito.doReturn("1","1").when(orderController).getInput();
-//		Mockito.when(orderServices.addItem(1L, 1L)).thenReturn(savedItem);
-//		assertEquals(new Item(1L,"Coat",1.99), orderServices.addItem(1L, 1L));
 		String order_id = "1";
 		String item_id = "1";
 		Mockito.doReturn(order_id,item_id).when(orderController).getInput();
-		Item item = new Item("thing", 5.00);
-		Item savedItem = new Item(1L, "thing", 5.00);
-		Mockito.when(orderServices.addItem(1L,1L)).thenReturn(savedItem);
-		assertEquals(savedItem, orderController.addItem());
+		orderController.addItem();
+		Mockito.verify(orderServices,Mockito.times(1)).addItem(1L, 1L);
 	}
 	
 	@Test

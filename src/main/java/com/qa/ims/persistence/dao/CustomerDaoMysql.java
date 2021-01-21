@@ -119,7 +119,7 @@ public class CustomerDaoMysql implements Dao<Customer> {
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("update customers set first_name ='" + customer.getFirstName() + "', last_name ='"
 					+ customer.getSurname() + "' where customer_id =" + customer.getId());
-			return readCustomer(customer.getId());
+			return readCustomer(customer.getId()); 
 		} catch (Exception e) {
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
@@ -142,5 +142,30 @@ public class CustomerDaoMysql implements Dao<Customer> {
 			LOGGER.error(e.getMessage());
 		}
 	}
+	
+	public String getJdbcConnectionUrl() {
+		return jdbcConnectionUrl;
+	}
+
+	public void setJdbcConnectionUrl(String jdbcConnectionUrl) {
+		this.jdbcConnectionUrl = jdbcConnectionUrl;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 }

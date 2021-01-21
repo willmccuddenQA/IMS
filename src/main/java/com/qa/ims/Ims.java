@@ -165,7 +165,7 @@ public class Ims {
 	public void init(String username, String password) {
 		init("jdbc:mysql://localhost:3306/", username, password, "src/main/resources/sql-schema.sql");
 	}
-
+ 
 	public String readFile(String fileLocation) {
 		StringBuilder stringBuilder = new StringBuilder();
 		try (BufferedReader br = new BufferedReader(new FileReader(fileLocation));) {
@@ -199,6 +199,7 @@ public class Ims {
 			for (StackTraceElement ele : e.getStackTrace()) {
 				LOGGER.debug(ele);
 			}
+			System.out.println("Here");
 			LOGGER.error(e.getMessage());
 		}
 	}

@@ -99,22 +99,11 @@ public class OrderDaoMysql {
 			LOGGER.error(e.getMessage());
 		}
 	}
-
-	public void deleteItem(Order order, Item item) {
-		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
-				Statement statement = connection.createStatement();){
-				statement.executeQuery("delete from orderline where order_id = '"+
-				order.getOrder_id()+"' and item_id = '" + item.getItem_id() + "' limit 1"); 
-		} catch (SQLException e) {
-			LOGGER.debug(e.getStackTrace());
-			LOGGER.error(e.getMessage());
-		}
-	}
 	
 	public void deleteItem(Long order_id, Long item_id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();){
-				statement.executeQuery("delete from orderline where order_id = '"+
+				statement.executeUpdate("delete from orderline where order_id = '"+
 				order_id+"' and item_id = '" + item_id + "' limit 1"); 
 		} catch (SQLException e) {
 			LOGGER.debug(e.getStackTrace());
@@ -168,19 +157,16 @@ public class OrderDaoMysql {
 		return items;
 	}
 	
-	public Item addItem(Long order_id, Long item_id) {
+	public void addItem(Long order_id, Long item_id) {
 		try (Connection connection = DriverManager.getConnection(jdbcConnectionUrl, username, password);
 				Statement statement = connection.createStatement();) {
-				ResultSet resultSet = statement.executeQuery("insert into orderline(order_id, item_id) values('" + order_id
+				statement.executeUpdate("insert into orderline(order_id, item_id) values('" + order_id
 					+ "','" + item_id + "')");
-				while (resultSet.next()) {
-					return itemFromResultSet(resultSet);
-				}
 		} catch (Exception e) {
+			System.out.println("Here");
 			LOGGER.debug(e.getStackTrace());
 			LOGGER.error(e.getMessage());
 		}
-		return null;
 	}
 	
 	public void addItem(Order order, Long item_id) {
@@ -209,4 +195,30 @@ public class OrderDaoMysql {
 		}
 		return new ArrayList<>();
 	}
+
+	public String getJdbcConnectionUrl() {
+		return jdbcConnectionUrl;
+	}
+
+	public void setJdbcConnectionUrl(String jdbcConnectionUrl) {
+		this.jdbcConnectionUrl = jdbcConnectionUrl;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 }
