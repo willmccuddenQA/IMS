@@ -1,68 +1,87 @@
-Coverage: 34%
-# Project Title
+Coverage: 79.7%
+# Inventory Management System
 
-One Paragraph of project description goes here
+This is a basic inventory management system which can be used for a website such as amazon. Customer details, order details and item details are all stored on an SQL server. This software allows the user
+to create, read details, update and delete any customers,orders and items from the database. It can also add items to orders, remove items from orders, read all items in a specific order and calculate the 
+cost of an order.
+
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
-What things you need to install the software and how to install them
+This is a java project so java is required. If you do not already have java installed you can download it here:
+https://www.oracle.com/uk/java/technologies/javase-downloads.html
+Run the .exe file and choose a location to save the JDK to. In your computers settings, go to edit enviroment variables and edit system variables from there, create a new system variable 
 
 ```
-Give examples
+JAVA_HOME 
 ```
+
+point it to the jdk file. Now, in the PATH variable under 'User variables for Admin' add
+
+```
+ %JAVA_HOME%/bin
+```
+
+Now java is installed.
+
+Secondly you will need maven which can be downloaded here:
+https://maven.apache.org/download.cgi
+follow similar steps to the java install, in the enviroment variables, create a new variable in system variables called 
+
+```
+MAVEN_HOME 
+```
+
+and point it to the downloaded maven file. Add this variable to the PATH variable like before.
+
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+To install this software firstly you must clone the repo. Navigate to the repository in your command line and enter,
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
 
 ```
-until finished
+mvn clean
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+followed by 
+
+```
+mvn package
+```
+
+The project is now build, run the following command to start the project.
+
+```
+java -jar chris-ims-0.0.1-jar-withdependencies.jar
+```
+The username is root and password is root. From here you can choose which domain to choose from. Depending on the domain you choose you will be given
+all possible actions and a description of what they do.
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+To run the tests enter
+
+```
+mvn test
+```
+
+in the project directory
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+These tests test all methods in the three controller, services and Dao classes. They ensure that each method returns the expected
+return value or is called if there is no return value. The tests have an 80% coverage of the code. The main absence is methods 
+in the Ims class.
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+If you want to adapt this system to work with a different sql server, copy that server's IP address into the
+init method on line 166, and in place of place of the current IP address in the jdbcConnectionUrl variable in the 
+ItemDaoMysql, OrderDaoMysl and CustomerDaoMysql classes.
+
 
 ## Built With
 
