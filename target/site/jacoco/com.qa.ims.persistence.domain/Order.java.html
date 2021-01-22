@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Order.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ims</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.persistence.domain</a> &gt; <span class="el_source">Order.java</span></div><h1>Order.java</h1><pre class="source lang-java linenums">package com.qa.ims.persistence.domain;
+import java.text.SimpleDateFormat;
+
+public class Order {
+	
+	private Long order_id;
+	private Long customer_id;
+	private String address;
+	
+<span class="fc" id="L10">	public Order(Long order_id, Long customer_id, String address) {</span>
+<span class="fc" id="L11">		this.order_id = order_id;</span>
+<span class="fc" id="L12">		this.customer_id = customer_id;</span>
+<span class="fc" id="L13">		this.address = address;</span>
+<span class="fc" id="L14">	}</span>
+
+<span class="fc" id="L16">	public Order(Long customer_id, String address) {</span>
+<span class="fc" id="L17">		this.customer_id = customer_id;</span>
+<span class="fc" id="L18">		this.address = address;</span>
+<span class="fc" id="L19">	}</span>
+
+	public Long getOrder_id() {
+<span class="fc" id="L22">		return order_id;</span>
+	}
+
+	public void setOrder_id(Long order_id) {
+<span class="fc" id="L26">		this.order_id = order_id;</span>
+<span class="fc" id="L27">	}</span>
+
+	public Long getCustomer_id() {
+<span class="fc" id="L30">		return customer_id;</span>
+	}
+
+	public void setCustomer_id(Long customer_id) {
+<span class="fc" id="L34">		this.customer_id = customer_id;</span>
+<span class="fc" id="L35">	}</span>
+
+	public String getAddress() {
+<span class="fc" id="L38">		return address;</span>
+	}
+
+	public void setAddress(String address) {
+<span class="fc" id="L42">		this.address = address;</span>
+<span class="fc" id="L43">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L47">		return &quot;order_id=&quot; + order_id + &quot;, customer_id=&quot; + customer_id + &quot;, address=&quot; + address;</span>
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		if (this == obj)</span>
+<span class="fc" id="L53">			return true;</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">		if (obj == null)</span>
+<span class="nc" id="L55">			return false;</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">		if (getClass() != obj.getClass())</span>
+<span class="nc" id="L57">			return false;</span>
+<span class="fc" id="L58">		Order other = (Order) obj;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		if (order_id == null) {</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">			if (other.order_id != null)</span>
+<span class="fc" id="L61">				return false;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">		} else if (!order_id.equals(other.order_id))</span>
+<span class="fc" id="L63">			return false;</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">		if (customer_id == null) {</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">			if (other.customer_id != null)</span>
+<span class="nc" id="L66">				return false;</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">		} else if (!customer_id.equals(other.customer_id))</span>
+<span class="nc" id="L68">			return false;</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">		if (address == null) {</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">			if (other.address != null)</span>
+<span class="nc" id="L71">				return false;</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">		} else if (!address.equals(other.address))</span>
+<span class="nc" id="L73">			return false;</span>
+<span class="fc" id="L74">		return true;</span>
+	}
+	
+	
+
+	
+	
+	
+	
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

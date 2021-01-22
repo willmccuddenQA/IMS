@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ims</a> &gt; <a href="index.source.html" class="el_package">com.qa.ims.controller</a> &gt; <span class="el_source">OrderController.java</span></div><h1>OrderController.java</h1><pre class="source lang-java linenums">package com.qa.ims.controller;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
+import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.domain.Order;
+import com.qa.ims.services.OrderServices;
+import com.qa.ims.utils.Utils;
+
+public class OrderController{
+	
+<span class="fc" id="L14">	public static final Logger LOGGER = Logger.getLogger(OrderController.class);</span>
+	
+	private OrderServices orderService;
+	
+<span class="fc" id="L18">	public OrderController(OrderServices orderService) {</span>
+<span class="fc" id="L19">		this.orderService = orderService;</span>
+<span class="fc" id="L20">	}</span>
+	
+	String getInput() {
+<span class="nc" id="L23">		return Utils.getInput(); </span>
+	}
+	//READ
+	public List&lt;Order&gt; readAll() {
+<span class="fc" id="L27">		List&lt;Order&gt; orders = orderService.readAll();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">		for(Order order: orders) {</span>
+<span class="fc" id="L29">			LOGGER.info(order.toString());</span>
+<span class="fc" id="L30">		}</span>
+<span class="fc" id="L31">		return orders; </span>
+	}
+	
+	//CREATE
+	public Order create() {
+<span class="fc" id="L36">		LOGGER.info(&quot;Please enter a customer id&quot;);</span>
+<span class="fc" id="L37">		Long customer_id = Long.valueOf(getInput());</span>
+<span class="fc" id="L38">		LOGGER.info(&quot;Please enter the address&quot;);</span>
+<span class="fc" id="L39">		String address = getInput();</span>
+<span class="fc" id="L40">		Order order = orderService.create(new Order(customer_id, address));</span>
+<span class="fc" id="L41">		LOGGER.info(&quot;What items would you like to add?&quot;);</span>
+<span class="fc" id="L42">		List&lt;Item&gt; items = orderService.retrieveAllItems();</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">		for(Item item : items) {</span>
+<span class="nc" id="L44">			LOGGER.info(item.toString());</span>
+<span class="nc" id="L45">		}</span>
+		while(true) {
+<span class="fc" id="L47">			LOGGER.info(&quot;Use the item's id to select it and enter 0 when done&quot;);</span>
+<span class="fc" id="L48">			Long item_id = Long.valueOf(getInput());</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">			if(item_id == 0) {</span>
+<span class="fc" id="L50">				break;</span>
+			}
+<span class="fc" id="L52">			orderService.addItem(order, item_id);</span>
+<span class="fc" id="L53">		}</span>
+<span class="fc" id="L54">		LOGGER.info(&quot;Order created&quot;);</span>
+<span class="fc" id="L55">		return order;</span>
+	}
+	
+	// DELETEITEM
+	public void deleteItem() {
+<span class="fc" id="L60">		LOGGER.info(&quot;Please enter an order id&quot;);</span>
+<span class="fc" id="L61">		Long order_id = Long.valueOf(getInput());</span>
+<span class="fc" id="L62">		LOGGER.info(&quot;What item would you like to delete?&quot;);</span>
+<span class="fc" id="L63">		List&lt;Item&gt; items = orderService.readItems(order_id);</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">		for(Item item : items) {</span>
+<span class="nc" id="L65">			LOGGER.info(item.toString());</span>
+<span class="nc" id="L66">		}</span>
+<span class="fc" id="L67">		LOGGER.info(&quot;Use the item's id to select it&quot;);</span>
+<span class="fc" id="L68">		Long item_id = Long.valueOf(getInput());</span>
+<span class="fc" id="L69">		orderService.deleteItem(order_id, item_id);</span>
+<span class="fc" id="L70">		LOGGER.info(&quot;Item deleted&quot;);</span>
+<span class="fc" id="L71">	}</span>
+	
+	// CALCULATE
+	public double calculate() {
+<span class="fc" id="L75">		LOGGER.info(&quot;Please enter an order id:&quot;);</span>
+<span class="fc" id="L76">		Long order_id = Long.valueOf(getInput());</span>
+<span class="fc" id="L77">		double cost = orderService.calculate(order_id);</span>
+<span class="fc" id="L78">		LOGGER.info(&quot;This order costs: &quot; + cost);</span>
+<span class="fc" id="L79">		return cost;</span>
+	}
+	
+	// READITEMS
+	public List&lt;Item&gt; readItems() {
+<span class="fc" id="L84">		LOGGER.info(&quot;Please enter an order id:&quot;);</span>
+<span class="fc" id="L85">		Long order_id = Long.valueOf(getInput());</span>
+<span class="fc" id="L86">		List&lt;Item&gt; items = orderService.readItems(order_id);</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">		for(Item item : items) {</span>
+<span class="fc" id="L88">			LOGGER.info(item.toString());</span>
+<span class="fc" id="L89">		}</span>
+<span class="fc" id="L90">		return items;</span>
+	}
+	
+	//ADD
+	public void addItem() {
+<span class="fc" id="L95">		LOGGER.info(&quot;Please enter and order id:&quot;);</span>
+<span class="fc" id="L96">		Long order_id = Long.valueOf(getInput());</span>
+<span class="fc" id="L97">		LOGGER.info(&quot;What item would you like to add?&quot;);</span>
+<span class="fc" id="L98">		List&lt;Item&gt; items = orderService.retrieveAllItems();</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">		for(Item item : items) {</span>
+<span class="nc" id="L100">			LOGGER.info(item.toString());</span>
+<span class="nc" id="L101">		}</span>
+<span class="fc" id="L102">		LOGGER.info(&quot;Use the item's id to select it&quot;);</span>
+<span class="fc" id="L103">		Long item_id = Long.valueOf(getInput());</span>
+<span class="fc" id="L104">		orderService.addItem(order_id, item_id);</span>
+<span class="fc" id="L105">	}</span>
+	
+	
+	//DELETE
+	public void delete() {
+<span class="fc" id="L110">		LOGGER.info(&quot;Please enter the id of the order you would like to delete&quot;);</span>
+<span class="fc" id="L111">		Long id = Long.valueOf(getInput());</span>
+<span class="fc" id="L112">		orderService.delete(id);</span>
+<span class="fc" id="L113">		LOGGER.info(&quot;Order deleted&quot;);</span>
+<span class="fc" id="L114">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
