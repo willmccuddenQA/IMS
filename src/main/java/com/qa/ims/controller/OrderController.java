@@ -35,7 +35,6 @@ public class OrderController{
 	public Order create() {
 		LOGGER.info("Please enter a customer id");
 		Long customer_id = Long.valueOf(getInput());
-		System.out.println(customer_id);
 		LOGGER.info("Please enter the address");
 		String address = getInput();
 		Order order = orderService.create(new Order(customer_id, address));
